@@ -1,0 +1,30 @@
+{
+  "configs": {"apostaMinima":5,"saldoInicial":100},
+  "jogadores": [
+    {"historico": [],"nome":"teste","playerID":3259,"saldo":100,"totalApostas":0,"totalGanho":0.0},
+    {
+      "historico": [
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"}
+      ],
+      "nome":"Jessé",
+      "playerID":3943,
+      "saldo":160.0,
+      "totalApostas":15,
+      "totalGanho":210.0
+    }
+  ]
+}

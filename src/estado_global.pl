@@ -62,7 +62,7 @@ salvar_dados :-
     open(Arq, write, Stream),
     json_write_dict(Stream, Dados, [width(128)]),
     close(Stream),
-    writeln("[SAVE] Dados persistidos em JSON.").
+    writeln("[SAVE] Dados atualizados.").
 
 salvar_dados_seguro :-
     catch(salvar_dados, Err,
