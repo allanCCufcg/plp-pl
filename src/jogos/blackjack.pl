@@ -1,3 +1,6 @@
+:- module(blackjack, [blackjack_menu/2, jogar_blackjack/1]).
+
+:- use_module('../estado_global.pl').
 :- encoding(utf8).
 :- use_module(library(random)).
 :- use_module(library(readutil)).
@@ -61,19 +64,32 @@ read_choice(Choice) :-
       )
     ).
 
-% ===== Regras =====
-regras :- 
+% ===== Menu principal do Blackjack =====
+blackjack_menu(ID, JogarNovamente) :-
+    estado_global:buscar_jogador_por_id(ID, jogador(ID, Nome, _, _, _, Saldo)),
+    nl,
     writeln("==================================="),
-    writeln("Regras do Blackjack:"), 
-    writeln("- Objetivo: chegar o mais próximo possível de 21 sem estourar."), 
-    writeln("- Cada rodada custa 10 unidades de saldo."), 
-    writeln("- Vitória: ganha 20 unidades; empate: recebe de volta 10; derrota: perde a aposta."), 
-    writeln("- Ases valem 1 ou 11, figuras valem 10."), 
-    writeln("- Se o dealer fizer 21 nas duas primeiras cartas, ele vence automaticamente."), 
-    writeln("==================================="), nl.
+    writeln("      🃏 Blackjack 🃏"),
+    writeln("==================================="),
+    format("Jogador: ~w | ID: ~w | Saldo atual: ~d~n", [Nome, ID, Saldo]),
+    writeln("==================================="),
+    writeln("Regras do Blackjack:"),
+    writeln("- Objetivo: chegar o mais próximo possível de 21 sem estourar."),
+    writeln("- Cada rodada custa 10 unidades de saldo."),
+    writeln("- Vitória: ganha 20 unidades; empate: recebe de volta 10; derrota: perde a aposta."),
+    writeln("- Ases valem 1 ou 11, figuras valem 10."),
+    writeln("- Se o dealer fizer 21 nas duas primeiras cartas, ele vence automaticamente."),
+    writeln("-----------------------------------"),
+    write("Deseja jogar? (s/n): "), flush_output,
+    read_line_to_string(user_input, Resp),
+    string_lower(Resp, LResp),
+    ( sub_string(LResp,0,1,_, "s") -> jogar_blackjack(ID), JogarNovamente = sim
+    ; sub_string(LResp,0,1,_, "n") -> JogarNovamente = nao
+    ; writeln("Opção inválida."), blackjack_menu(ID, JogarNovamente)
+    ).
 
 % ===== Loop principal do jogo =====
-game_loop(Deck, Player, Dealer, StandP, StandD, Saldo, SaldoFinal) :-
+game_loop(Deck, Player, Dealer, StandP, StandD, ID, Saldo, SaldoFinal) :-
     pontuacao(Player, Pp),
     mostrar_mao(Player, PlayerStr),
     show_dealer_hidden(Dealer, DealerHidden),
@@ -81,7 +97,7 @@ game_loop(Deck, Player, Dealer, StandP, StandD, Saldo, SaldoFinal) :-
     format("Sua mão: ~s (Pontos: ~d)~n", [PlayerStr, Pp]),
     format("Mão do dealer: ~s~n", [DealerHidden]),
 
-    % Jogador
+    % Jogador decide
     ( Pp > 21 -> NewPlayer = Player, NewDeckP = Deck, StandPNext = true
     ; StandP -> NewPlayer = Player, NewDeckP = Deck, StandPNext = true
     ; read_choice(Choice),
@@ -90,7 +106,7 @@ game_loop(Deck, Player, Dealer, StandP, StandD, Saldo, SaldoFinal) :-
       )
     ),
 
-    % Dealer
+    % Dealer joga
     pontuacao(Dealer, PdNow),
     ( StandD -> NewDealer = Dealer, NewDeck = NewDeckP, StandDNext = true
     ; PdNow < 17 -> draw_card(NewDeckP, CardD, Deck2), append(Dealer, [CardD], NewDealer), NewDeck = Deck2, StandDNext = false
@@ -105,47 +121,43 @@ game_loop(Deck, Player, Dealer, StandP, StandD, Saldo, SaldoFinal) :-
         format("Mão final do dealer: ~s (Pontos: ~d)~n", [DealerStrFinal, DFinal]),
         mostrar_mao(NewPlayer, PlayerStrFinal),
         format("Sua mão final: ~s (Pontos: ~d)~n", [PlayerStrFinal, PFinal]), nl,
-        ( PFinal > DFinal, PFinal =< 21 -> writeln("Você venceu!"), SaldoFinal is Saldo + 20
-        ; DFinal > PFinal, DFinal =< 21 -> writeln("Dealer venceu!"), SaldoFinal is Saldo
-        ; PFinal = DFinal -> writeln("Empate!"), SaldoFinal is Saldo + 10
-        ; PFinal > 21, DFinal =< 21 -> writeln("Dealer venceu!"), SaldoFinal is Saldo
-        ; DFinal > 21, PFinal =< 21 -> writeln("Você venceu!"), SaldoFinal is Saldo + 20
-        ; writeln("Empate!"), SaldoFinal is Saldo + 10
-        )
-    ; game_loop(NewDeck, NewPlayer, NewDealer, StandPNext, StandDNext, Saldo, SaldoFinal)
+
+        % ===== Decisão do vencedor =====
+        ( PFinal =< 21, DFinal =< 21 ->
+            ( PFinal > DFinal -> writeln("Você venceu!"), Ganho = 20
+            ; DFinal > PFinal -> writeln("Dealer venceu!"), Ganho = 0
+            ; writeln("Empate!"), Ganho = 10
+            )
+        ; PFinal > 21, DFinal =< 21 -> writeln("Dealer venceu!"), Ganho = 0
+        ; DFinal > 21, PFinal =< 21 -> writeln("Você venceu!"), Ganho = 20
+        ; PFinal > 21, DFinal > 21 ->
+            % Ambos estouraram: quem ultrapassou menos ganha
+            DiferencaP is PFinal - 21,
+            DiferencaD is DFinal - 21,
+            ( DiferencaP < DiferencaD -> writeln("Você venceu! (menos estourado)"), Ganho = 20
+            ; DiferencaD < DiferencaP -> writeln("Dealer venceu! (menos estourado)"), Ganho = 0
+            ; writeln("Empate! (ambos estouraram)"), Ganho = 10
+            )
+        ),
+
+        % Registra jogada e atualiza saldo
+        estado_global:registrar_jogada(ID, "blackjack", 10, Ganho),
+        SaldoFinal is Saldo - 10 + Ganho
+
+    ; game_loop(NewDeck, NewPlayer, NewDealer, StandPNext, StandDNext, ID, Saldo, SaldoFinal)
     ).
 
 % ===== Jogar uma rodada =====
-jogar_blackjack(SaldoInicial) :-
-    (SaldoInicial < 10 -> writeln("Saldo insuficiente para jogar!"), !, menu(SaldoInicial)
-    ; Saldo is SaldoInicial - 10,
+jogar_blackjack(ID) :-
+    estado_global:buscar_jogador_por_id(ID, jogador(ID,_,_,_,_,SaldoAtual)),
+    ( SaldoAtual < 10 -> writeln("Saldo insuficiente para jogar!")
+    ; Saldo is SaldoAtual - 10,
       baralho(B0), shuffle_deck(B0, B1),
       draw_card(B1, C1, B2), draw_card(B2, C2, B3), Player = [C1, C2],
       draw_card(B3, D1, B4), draw_card(B4, D2, B5), Dealer = [D1, D2],
 
       pontuacao(Dealer, Pd),
-      ( Pd =:= 21 -> mostrar_mao(Dealer, DealerStr), format("Dealer fez Blackjack! Mão: ~s~n", [DealerStr]), writeln("Dealer venceu!"), SaldoFinal is Saldo
-      ; game_loop(B5, Player, Dealer, false, false, Saldo, SaldoFinal)
+      ( Pd =:= 21 -> mostrar_mao(Dealer, DealerStr), format("Dealer fez Blackjack! Mão: ~s~n", [DealerStr]), writeln("Dealer venceu!")
+      ; game_loop(B5, Player, Dealer, false, false, ID, Saldo, _)
       )
-    ),
-    % Volta para o menu principal após a rodada
-    menu(SaldoFinal).
-
-% ===== Menu principal =====
-menu(Saldo) :-
-    nl,
-    format("Seu saldo atual: ~d~n", [Saldo]),
-    write("Quer jogar uma rodada? (s/n): "),
-    flush_output,
-    read_line_to_string(user_input, Raw),
-    string_lower(Raw, L),
-    ( sub_string(L, 0, 1, _, "s") -> jogar_blackjack(Saldo)
-    ; sub_string(L, 0, 1, _, "n") -> writeln("Obrigado por jogar!")
-    ; writeln("Resposta inválida."), menu(Saldo)
     ).
-
-% ===== Inicializa o jogo =====
-start_blackjack :-
-    regras,
-    SaldoInicial = 100,
-    menu(SaldoInicial).
