@@ -4,6 +4,7 @@
 :- use_module('jogos/roleta.pl').
 :- use_module('jogos/cacaniquel.pl').
 :- use_module('jogos/caixasurpresa.pl').
+:- use_module('jogos/baccarat.pl').
 :- use_module(library(readutil)).
 
 % --------- Menu principal ----------
@@ -131,7 +132,7 @@ menu_jogador(ID, Nome, _SaldoAntigo) :-
         writeln(""),
         writeln("JOGOS DISPONIVEIS:"),
         writeln("1 - Blackjack"),
-        writeln("2 - Baccarat (em breve)"),
+        writeln("2 - Baccarat"),
         writeln("3 - Roleta"),
         writeln("4 - Caca-niquel"), 
         writeln("5 - Caixa-surpresa"),
@@ -153,9 +154,7 @@ handle_jogador_menu("1", ID, Nome, Saldo) :-
     jogar_blackjack_menu(ID, Nome, Saldo).
 
 handle_jogador_menu("2", ID, Nome, Saldo) :- 
-    writeln("Baccarat ainda nao implementado."),
-    writeln("Em breve disponivel!"),
-    menu_jogador(ID, Nome, Saldo).
+    jogar_baccarat_menu(ID, Nome, Saldo).
 
 handle_jogador_menu("3", ID, Nome, Saldo) :-
     jogar_roleta_menu(ID, Nome, Saldo).
@@ -229,5 +228,16 @@ jogar_caixa_surpresa_menu(ID, Nome, Saldo) :-
       menu_jogador(ID, Nome, Saldo)
     ).
 
+    % --------- Wrapper para Baccarat ----------
+jogar_baccarat_menu(ID, Nome, Saldo) :-
+    baccarat:baccarat_menu(ID, JogarNovamente),
+    (JogarNovamente == sim ->
+        jogar_baccarat_menu(ID, Nome, Saldo)
+    ; writeln("Voltando ao menu do jogador..."),
+      menu_jogador(ID, Nome, Saldo)
+    ).
+
+
 % --------- Inicialização ----------
 :- initialization(main).
+
