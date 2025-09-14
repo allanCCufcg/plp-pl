@@ -1,9 +1,59 @@
 {
   "configs": {"apostaMinima":5,"saldoInicial":100},
   "jogadores": [
-    {"historico": [],"nome":"teste","playerID":3259,"saldo":100,"totalApostas":0,"totalGanho":0.0},
     {
       "historico": [
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":10.0,"jogo":"Roleta"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"}
+      ],
+      "nome":"allan",
+      "playerID":6477,
+      "saldo":0.0,
+      "totalApostas":26,
+      "totalGanho":50.0
+    },
+    {
+      "historico": [
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
 	{"aposta":10.0,"jogo":"Roleta"},
 	{"aposta":10.0,"jogo":"Roleta"},
 	{"aposta":10.0,"jogo":"Roleta"},
@@ -22,9 +72,85 @@
       ],
       "nome":"Jessé",
       "playerID":3943,
-      "saldo":160.0,
-      "totalApostas":15,
+      "saldo":0.0,
+      "totalApostas":31,
       "totalGanho":210.0
+    },
+    {
+      "historico": [ {"aposta":10.0,"jogo":"Caca-niquel"},  {"aposta":10.0,"jogo":"Caca-niquel"} ],
+      "nome":"teste",
+      "playerID":3259,
+      "saldo":80.0,
+      "totalApostas":2,
+      "totalGanho":0.0
+    },
+    {
+      "historico": [ {"aposta":10.0,"jogo":"Caca-niquel"},  {"aposta":5.0,"jogo":"Caca-niquel"},  {"aposta":5.0,"jogo":"Caca-niquel"} ],
+      "nome":"teste",
+      "playerID":8556,
+      "saldo":80.0,
+      "totalApostas":3,
+      "totalGanho":0.0
+    },
+    {
+      "historico": [ {"aposta":10.0,"jogo":"Caca-niquel"} ],
+      "nome":"Allan",
+      "playerID":2593,
+      "saldo":90.0,
+      "totalApostas":1,
+      "totalGanho":0.0
+    },
+    {
+      "historico": [ {"aposta":5.0,"jogo":"Caca-niquel"} ],
+      "nome":"aaa",
+      "playerID":2768,
+      "saldo":95.0,
+      "totalApostas":1,
+      "totalGanho":0.0
+    },
+    {
+      "historico": [
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"}
+      ],
+      "nome":"allanzola",
+      "playerID":8311,
+      "saldo":55.0,
+      "totalApostas":9,
+      "totalGanho":0.0
+    },
+    {"historico": [],"nome":"alaal","playerID":9339,"saldo":100,"totalApostas":0,"totalGanho":0.0},
+    {
+      "historico": [
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":10.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"},
+	{"aposta":5.0,"jogo":"Caca-niquel"}
+      ],
+      "nome":"a",
+      "playerID":6693,
+      "saldo":500.0,
+      "totalApostas":16,
+      "totalGanho":550.0
     }
   ]
 }

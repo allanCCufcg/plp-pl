@@ -2,6 +2,7 @@
 :- use_module('estado_global.pl').
 :- use_module('jogos/blackjack.pl').
 :- use_module('jogos/roleta.pl').
+:- use_module('jogos/cacaniquel.pl').  % ADICIONE ESTA LINHA
 :- use_module(library(readutil)).
 
 % --------- Menu principal ----------
@@ -122,7 +123,6 @@ criar_conta :-
 
 % --------- Menu do jogador ----------
 menu_jogador(ID, Nome, _SaldoAntigo) :-
-    % Buscar saldo atualizado
     estado_global:buscar_jogador_por_id(ID, Jogador),
     ( Jogador = jogador(ID, Nome, _, _, _, Saldo) ->
         nl, format("=== Menu de ~w ===~n", [Nome]),
@@ -132,7 +132,7 @@ menu_jogador(ID, Nome, _SaldoAntigo) :-
         writeln("1 - Blackjack"),
         writeln("2 - Baccarat (em breve)"),
         writeln("3 - Roleta"),
-        writeln("4 - Caca-niquel (em breve)"),
+        writeln("4 - Caca-niquel"), % REMOVA O "em breve"
         writeln("5 - Caixa-surpresa (em breve)"),
         writeln(""),
         writeln("OUTRAS OPCOES:"),
@@ -160,9 +160,7 @@ handle_jogador_menu("3", ID, Nome, Saldo) :-
     jogar_roleta_menu(ID, Nome, Saldo).
 
 handle_jogador_menu("4", ID, Nome, Saldo) :- 
-    writeln("Caca-niquel ainda nao implementado."),
-    writeln("Em breve disponivel!"),
-    menu_jogador(ID, Nome, Saldo).
+    jogar_cacaniquel_menu(ID, Nome, Saldo).
 
 handle_jogador_menu("5", ID, Nome, Saldo) :- 
     writeln("Caixa-surpresa ainda nao implementada."),
@@ -213,6 +211,14 @@ jogar_roleta_menu(ID, Nome, Saldo) :-
         jogar_roleta_menu(ID, Nome, Saldo)
     ; writeln("Voltando ao menu do jogador..."),
       menu_jogador(ID, Nome, Saldo)
+    ).
+
+% --------- Wrapper para Caça-níquel ----------
+jogar_cacaniquel_menu(ID, Nome, Saldo) :-
+    cacaniquel:cacaniquel_menu(ID, JogarNovamente),
+    ( JogarNovamente == sim ->
+        jogar_cacaniquel_menu(ID, Nome, Saldo)
+    ; menu_jogador(ID, Nome, Saldo)
     ).
 
 % --------- Inicialização ----------
