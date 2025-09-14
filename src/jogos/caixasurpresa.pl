@@ -71,7 +71,7 @@ caixa_surpresa_menu(ID, JogarNovamente) :-
 % ---------------- EXECUÇÃO DE UMA JOGADA ----------------
 jogar_caixa_surpresa(ID) :-
     custo_jogada(Custo),
-    estado_global:buscar_jogador_por_id(ID, jogador(ID, Nome, _, _, _, Saldo)),
+    estado_global:buscar_jogador_por_id(ID, jogador(ID, _, _, _, _, Saldo)),
     ( Saldo < Custo ->
         writeln("Saldo insuficiente para abrir a caixa-surpresa (custo: R$5).")
     ;   writeln("Abrindo a caixa..."),
