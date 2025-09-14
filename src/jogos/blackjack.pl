@@ -71,7 +71,7 @@ blackjack_menu(ID, JogarNovamente) :-
     writeln("==================================="),
     writeln("      🃏 Blackjack 🃏"),
     writeln("==================================="),
-    format("Jogador: ~w | ID: ~w | Saldo atual: ~d~n", [Nome, ID, Saldo]),
+    format("Jogador: ~w | ID: ~w | Saldo atual: ~2f~n", [Nome, ID, Saldo]),
     writeln("==================================="),
     writeln("Regras do Blackjack:"),
     writeln("- Objetivo: chegar o mais próximo possível de 21 sem estourar."),
