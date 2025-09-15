@@ -172,10 +172,10 @@ formatar_carta(Carta, Str) :- number(Carta), number_string(Carta, Str).
 
 mostrar_resultado_final_baccarat(Aposta, Resultado, ValorAposta, Ganho) :-
     (Aposta = Resultado ->
-        format("🎉 PARABÉNS! Você acertou a aposta em ~w!~n", [Resultado]),
-        format("💰 Ganho líquido: ~2f~n", [Ganho - ValorAposta])
-    ; format("💔 Que pena! A aposta vencedora era ~w.~n", [Resultado]),
-      format("💸 Perda: ~2f~n", [ValorAposta])
+        format("PARABÉNS! Você acertou a aposta em ~w!~n", [Resultado]),
+        format("Ganho líquido: ~2f~n", [Ganho - ValorAposta])
+    ; format("Que pena! A aposta vencedora era ~w.~n", [Resultado]),
+      format("Perda: ~2f~n", [ValorAposta])
     ),
     nl.
 
@@ -198,3 +198,4 @@ processar_resposta_jogar_novamente_baccarat("NÃO", nao).
 processar_resposta_jogar_novamente_baccarat(_, JogarNovamente) :-
     writeln("❌ Resposta inválida! Digite 's' para sim ou 'n' para não."),
     perguntar_jogar_novamente_baccarat(JogarNovamente).
+
